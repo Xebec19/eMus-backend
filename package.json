@@ -1,0 +1,29 @@
+{
+  "name": "psychic-octo-sniffle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xebec19/psychic-octo-sniffle.git"
+  },
+  "keywords": [],
+  "author": "Rohan Kumar Thakur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xebec19/psychic-octo-sniffle/issues"
+  },
+  "homepage": "https://github.com/Xebec19/psychic-octo-sniffle#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.5",
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
+}
