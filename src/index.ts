@@ -1,15 +1,13 @@
 import express, { NextFunction, Request, Response } from "express"
 import auth from "./routes/auth.route"
+import statusCodes from "./utils/status-codes.map";
 const app = express()
-const port = process.env.PORT || 3000
 
 app.use("/public",auth);
 
-const errorHandler = (err:Error, req:Request, res:Response, next:NextFunction) => {
-  res.status(500)
-  res.render('error', { error: err });
-}
+app.use((err:Error, req:Request, res:Response, next:NextFunction) => {
+  res.status(statusCodes.INTERNAL_SERVER_ERROR);
+  res.json({message:"Oops something broke!"}).end();
+});
 
-app.listen(port, () => {
-  console.log(`app listening at http://localhost:${port}`)
-})
+export default app;
