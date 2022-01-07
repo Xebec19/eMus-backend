@@ -4,6 +4,6 @@ import errorHandler from '../utils/errorHandler.middleware';
 
 const router = express.Router();
 
-router.post('/login',errorHandler(login));
+router.get('/login',errorHandler(login));
 
 export default router;
