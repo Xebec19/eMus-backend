@@ -1,0 +1,7 @@
+User table
+
+user id
+user name
+email
+password
+created at
