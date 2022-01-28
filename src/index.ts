@@ -4,7 +4,7 @@ import { statusCodes } from './utils/index.utils'
 
 const app = express()
 
-app.use("/auth",auth);
+app.use(express.static('public'))
 
 app.use((err:Error, req:Request, res:Response, next:NextFunction) => {
   res.status(statusCodes.INTERNAL_SERVER_ERROR);
