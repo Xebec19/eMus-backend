@@ -1,19 +1,20 @@
 import express, { NextFunction, Request, Response } from "express"
 import expressEjsLayouts from "express-ejs-layouts";
 import auth from "./routes/auth.route"
-import { statusCodes } from './utils/index.utils'
+import { statusCodes } from './utils/index.utils';
+import path from 'path';
 
 const app = express()
 
 app.use("/auth",auth);
 
-app.use(express.static('public'));
+app.use('/css', express.static(path.join(__dirname,'/public/css')))
 app.use(expressEjsLayouts);
-app.set('layout','./layouts/main');
+app.set('layout','layouts/main');
 app.set('view engine','ejs');
-app.set('views','./public/views')
+app.set('views',path.join(__dirname,'/public/views'));
 
-app.get('/render',(req:Request,res:Response) => {
+app.get('/',(req:Request,res:Response) => {
   res.render('index');
 })
 
