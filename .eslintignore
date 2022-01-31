@@ -17,3 +17,6 @@
 
     #misl
     wiki
+
+    # environment
+    .env
