@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --config=src/jest.config.ts --passWithNoTests",
     "start": "npm run build && node build/server.js",
-    "start:dev": "nodemon",
+    "watch:debug": "nodemon",
     "build": "rimraf ./build && tsc -p tsconfig.production.json",
     "lint": "eslint src/**/*.ts",
     "lint-fix": "eslint --fix src/**/*.ts",
@@ -55,6 +55,7 @@
     "express-ejs-layouts": "^2.5.1",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.12.5"
+    "sequelize": "^6.12.5",
+    "winston": "^3.5.0"
   }
 }
