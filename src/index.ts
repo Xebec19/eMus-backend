@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from "express"
 import expressEjsLayouts from "express-ejs-layouts";
 import auth from "./routes/auth.route"
-import { statusCodes } from './utils/index.utils';
 import path from 'path';
+import { statusCodes } from "./utils/status-codes.map";
 
 const app = express()
 

@@ -1,14 +1,13 @@
-import winston, { format } from "winston";
+import winston, { format } from 'winston';
+
 const { combine, timestamp, printf, label, prettyPrint } = format;
 
-const logFormat = printf(({ level, message, label, timestamp }) => {
-    return `${timestamp} ${level} : ${message}`;
-})
+const logFormat = printf(({ type, text, time }) => `${time} ${type} : ${text}`);
 
 const ignorePrivate = format((info, opts) => {
     if (info.private && process.env.NODE_ENV === 'production') { return false; }
     return info;
-})
+});
 
 const logger = winston.createLogger({
     level: 'info',
@@ -31,6 +30,6 @@ if (process.env.NODE_ENV !== 'production') {
             logFormat,
             prettyPrint()
         )
-    }))
+    }));
 }
-export { logger };
+export default logger;
