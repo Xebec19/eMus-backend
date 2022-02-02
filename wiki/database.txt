@@ -51,3 +51,13 @@ Tables Definition
     @Desc: It provides mapping of shop, role and user
     @Attributes: member_id, user_id, role_id, store_id, created_on, updated_on, created_by, updated_by, status
     @Foreign key(s): user_id, role_id, store_id
+
+8. Queues:
+    @Desc: It provides list of waiting, served, rejected, reconsider Users
+    @Attributes: queue_id, user_id, timestamp, created_on, updated_on, status, counter_assigned
+    @Foreign key(s): user_id, counter_assigned
+
+9. JWT or Sessions: 
+    @Desc: It lists tokens generated to Users
+    @Attributes: token_id, user_id, token, created_on
+    @Foreign key(s): user_id
