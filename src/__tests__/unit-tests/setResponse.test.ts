@@ -1,5 +1,3 @@
-import { setResponse } from "../../utils/setResponse.method";
-
 describe("Test setReponse method",() => {
     // test("Response for success", async() => {
     //     const response = setResponse('test data',true,'Api fetching data successfully');

@@ -15,14 +15,39 @@ Tables Definition
 1. Users: 
     @Desc: It lists all Users
     @Attributes: user_id, user_name, first_name, last_name, email, password, created_on, updated_on, status
-    @Primary keys: user_id
-    @Foreign keys: none
+    @Primary key: user_id
+    @Foreign key(s): none
 
 2. Roles:
     @Desc: It lists all roles which will be used to give permissions to a user with given roles
-    @Attributes: role_id, role_name, desc, created_on, updated_on
-    @Primary keys: role_id
-    @Foreign keys: none
+    @Attributes: role_id, role_name, description, status, created_on, updated_on, created_by, updated_by
+    @Primary key: role_id
+    @Foreign key(s): created_by and updated_by ( user_id in Users)
 
 3. Permissions:
     @Desc: It contains some prefilled permissions to define what tasks to be performed by whom
+    @Attributes: permission_id, permission_name, description, created_on, updated_on, created_by, updated_by
+    @Primary key: permission_id
+    @Foreign key(s): created_by and updated_by ( user_id in Users)
+
+4. RolePermissionPolicies:
+    @Desc: It provides mapping of roles with permissions
+    @Attributes: policy_id, role_id, permission_id, created_on, updated_on, created_by, updated_by
+    @Primary key: policy_id
+    @Foreign key(s): role_id, permission_id, created_by and updated_by ( user_id in Users)
+
+5. Stores:
+    @Desc: It lists all Stores
+    @Attributes: store_id, store_name, description, status, created_on, updated_on, created_by, updated_by
+    @Primary key: store_id
+    @Foreign key(s): created_by and updated_by ( user_id in Users)
+
+6. Counters:
+    @Desc: It lists all counters and to which store they are associated with. Counter code will be random by default
+    @Attributes: counter_id, counter_code, store_id, status, created_by, updated_by, created_on, updated_on, assignee, member_id
+    @Foreign key(s): created_by, assignee and updated_by ( user_id in Users), store_id, member_id
+
+7. Members:
+    @Desc: It provides mapping of shop, role and user
+    @Attributes: member_id, user_id, role_id, store_id, created_on, updated_on, created_by, updated_by, status
+    @Foreign key(s): user_id, role_id, store_id
