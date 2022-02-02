@@ -1,7 +1,28 @@
-User table
+Tables
 
-user id
-user name
-email
-password
-created at
+1. Users
+2. Roles
+3. Permissions
+4. RolePermissionPolicy
+5. Stores
+6. Counters
+7. Members
+8. Queues
+9. JWT or Sessions
+
+Tables Definition
+
+1. Users: 
+    @Desc: It lists all Users
+    @Attributes: user_id, user_name, first_name, last_name, email, password, created_on, updated_on, status
+    @Primary keys: user_id
+    @Foreign keys: none
+
+2. Roles:
+    @Desc: It lists all roles which will be used to give permissions to a user with given roles
+    @Attributes: role_id, role_name, desc, created_on, updated_on
+    @Primary keys: role_id
+    @Foreign keys: none
+
+3. Permissions:
+    @Desc: It contains some prefilled permissions to define what tasks to be performed by whom
