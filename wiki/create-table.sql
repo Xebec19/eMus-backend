@@ -34,7 +34,7 @@ create table permissions(
     updated_by varchar(20) not null,
     primary key(permission_id),
     constraint fk_permission_creater foreign key (created_by) references users(user_id) on delete restrict,
-    constraint fk_permission_updator foreign key (user_id) on delete restrict
+    constraint fk_permission_updator foreign key (updated_by) references users(user_id) on delete restrict
 );
 
 create table role_permission_policies(
@@ -64,6 +64,24 @@ create table stores(
     constraint fk_store_updater foreign key (updated_by) references users(user_id) on delete restrict
 );
 
+create table members(
+    member_id varchar(20),
+    user_id varchar(20) not null,
+    role_id varchar(20) not null,
+    store_id varchar(20) not null,
+    created_on timestamp default now(),
+    updated_on timestamp default now(),
+    created_by varchar(20) not null,
+    updated_by varchar(20) not null,
+    status varchar(20) default 'active',
+    primary key(member_id),
+    constraint fk_member_creater foreign key (created_by) references users(user_id) on delete restrict,
+    constraint fk_member_updater foreign key (updated_by) references users(user_id) on delete restrict,
+    constraint fk_member_user foreign key (user_id) references users(user_id) on delete restrict,
+    constraint fk_member_role foreign key (role_id) references roles(role_id) on delete restrict,
+    constraint fk_member_store foreign key (store_id) references stores(store_id) on delete restrict
+);
+
 create table counters(
     counter_id varchar(20),
     counter_code varchar(50) not null,
@@ -81,24 +99,6 @@ create table counters(
     constraint fk_member foreign key (member_id) references members(member_id) on delete restrict,
     constraint fk_store foreign key (store_id) references stores(store_id) on delete restrict,
     constraint fk_assignee foreign key (assignee) references users(user_id) on delete restrict
-);
-
-create table members(
-    member_id varchar(20),
-    user_id varchar(20) not null,
-    role_id varchar(20) not null,
-    store_id varchar(20) not null,
-    created_on timestamp default now(),
-    updated_on timestamp default now(),
-    created_by varchar(20) not null,
-    updated_by varchar(20) not null,
-    status varchar(20) default 'active',
-    primary key(memeber_id),
-    constraint fk_member_creater foreign key (created_by) references users(user_id) on delete restrict,
-    constraint fk_member_updater foreign key (updated_by) references users(user_id) on delete restrict,
-    constraint fk_member_user foreign key (user_id) references users(user_id) on delete restrict,
-    constraint fk_member_role foreign key (role_id) references roles(role_id) on delete restrict,
-    constraint fk_member_store foreign key (store_id) references stores(store_id) on delete restrict
 );
 
 create table queues(
@@ -120,4 +120,4 @@ create table sessions(
     created_on timestamp default now(),
     primary key(token_id),
     constraint fk_session_user foreign key (user_id) references users(user_id) on delete cascade
-)
+);
