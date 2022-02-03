@@ -97,5 +97,27 @@ create table members(
     constraint fk_member_creater foreign key (created_by) references users(user_id) on delete restrict,
     constraint fk_member_updater foreign key (updated_by) references users(user_id) on delete restrict,
     constraint fk_member_user foreign key (user_id) references users(user_id) on delete restrict,
-    constraint fk_member_role
+    constraint fk_member_role foreign key (role_id) references roles(role_id) on delete restrict,
+    constraint fk_member_store foreign key (store_id) references stores(store_id) on delete restrict
+);
+
+create table queues(
+    queue_id varchar(20),
+    user_id varchar(20) not null,
+    created_on timestamp default now(),
+    updated_on timestamp default now(),
+    status varchar(10) default 'active',
+    counter_assigned varchar(20) not null,
+    primary key(queue_id),
+    constraint fk_queue_user foreign key (user_id) references users(user_id) on delete set null,
+    constraint fk_queue_counter_assigned foreign key (counter_assigned) references counters(counter_id) on delete set null
+);
+
+create table sessions(
+    token_id varchar(20),
+    user_id varchar(20) not null,
+    token text not null,
+    created_on timestamp default now(),
+    primary key(token_id),
+    constraint fk_session_user foreign key (user_id) references users(user_id) on delete cascade
 )
