@@ -1,4 +1,44 @@
 $light1: #ffcce7;
 $light2: #daf2dc;
 $dark1: #81b7d2;
-$dark2: #4d5198
+$dark2: #4d5198;
+
+$primary-font: 'Quattrocento Sans', sans-serif;
+$secondary-font: 'Work Sans', sans-serif;
+
+body{
+    margin: 0 auto;
+    background-color: $light2;
+}
+
+.home__nav{
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    //background-color: $dark1;
+    .nav__logo{
+        img{
+            width:4rem;
+        }
+    }
+    .nav__links{
+        ul{
+            padding: 0px;
+            list-style: none;
+            display: flex;
+            li{
+                padding-right: 15px;
+                color: $dark2;
+                cursor: pointer;
+                font-family: $primary-font;
+            }
+            li:hover{
+                color: $dark1;
+            }
+        }
+    }
+}
+
+main{
+}
