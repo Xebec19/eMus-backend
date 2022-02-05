@@ -4,6 +4,7 @@ import auth from "./routes/auth.route"
 import path from 'path';
 import { statusCodes } from "./utils/status-codes.map";
 import publicApis from './routes/public.route';
+import logger from "./utils/logger.util";
 
 const app = express()
 
@@ -22,7 +23,7 @@ app.get('/',(req:Request,res:Response) => res.redirect('/public/home'));
 app.use('/public',publicApis);
 
 app.use((err:Error, req:Request, res:Response, next:NextFunction) => {
-  console.error('--error',err);
+  logger.error('--error',err);
   res.status(statusCodes.INTERNAL_SERVER_ERROR);
   res.json({message:"Oops something broke!"}).end();
 });
