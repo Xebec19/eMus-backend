@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { statusCodes } from '../utils/status-codes.map';
 
-const login = async(req:Request, res:Response) => {
-    res.status(statusCodes.SUCCESS).json({ 'message':'success' }).end();
+const loginForm = async(req:Request, res:Response) => {
+    res.render('login');
+    res.end();
 };
 
-export default login;
+export default loginForm;

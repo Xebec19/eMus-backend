@@ -1,35 +1,51 @@
-import winston, { format } from 'winston';
+import winston from 'winston'
 
-const { combine, timestamp, printf, label, prettyPrint } = format;
-
-const logFormat = printf(({ type, text, time }) => `${time} ${type} : ${text}`);
-
-const ignorePrivate = format((info, opts) => {
-    if (info.private && process.env.NODE_ENV === 'production') { return false; }
-    return info;
-});
-
-const logger = winston.createLogger({
-    level: 'info',
-    format: combine(
-        ignorePrivate(),
-        timestamp(),
-        logFormat,
-        prettyPrint()
-    ),
-    defaultMeta: { service: 'user-service' },
-    transports: []
-});
-
-if (process.env.NODE_ENV !== 'production') {
-    logger.add(new winston.transports.Console({
-        format: combine(
-            label({ label: 'log' }),
-            ignorePrivate(),
-            timestamp(),
-            logFormat,
-            prettyPrint()
-        )
-    }));
+const levels = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  http: 3,
+  debug: 4,
 }
-export default logger;
+
+const level = () => {
+  const env = process.env.NODE_ENV || 'development'
+  const isDevelopment = env === 'development'
+  return isDevelopment ? 'debug' : 'warn'
+}
+
+const colors = {
+  error: 'red',
+  warn: 'yellow',
+  info: 'green',
+  http: 'magenta',
+  debug: 'white',
+}
+
+winston.addColors(colors)
+
+const format = winston.format.combine(
+  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+  winston.format.colorize({ all: true }),
+  winston.format.printf(
+    (info) => `${info.timestamp} ${info.level}: ${info.message}`,
+  ),
+)
+
+const transports = [
+  new winston.transports.Console(),
+  new winston.transports.File({
+    filename: 'logs/error.log',
+    level: 'error',
+  }),
+  new winston.transports.File({ filename: 'logs/all.log' }),
+]
+
+const Logger = winston.createLogger({
+  level: level(),
+  levels,
+  format,
+  transports,
+})
+
+export default Logger
