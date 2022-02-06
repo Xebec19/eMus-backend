@@ -1,2 +1,16 @@
 <link rel="stylesheet" href="/css/login.css">
 
+<label class="mdc-text-field mdc-text-field--filled username">
+    <span class="mdc-text-field__ripple"></span>
+    <input type="text" class="mdc-text-field__input" aria-labelledby="username-label" name="username" required>
+    <span class="mdc-floating-label" id="username-label">Username</span>
+    <span class="mdc-line-ripple"></span>
+  </label>
+  <label class="mdc-text-field mdc-text-field--filled password">
+    <span class="mdc-text-field__ripple"></span>
+    <input type="password" class="mdc-text-field__input" aria-labelledby="password-label" name="password" required minlength="8">
+    <span class="mdc-floating-label" id="password-label">Password</span>
+    <span class="mdc-line-ripple"></span>
+  </label>
+
+  <script src="/js/login.js" async></script>

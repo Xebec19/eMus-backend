@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name":"Debug",
+            "type":"node",
+            "request": "attach",
+            "program": "${workspaceFolder}/src/index.ts",
+            "restart": true,
+            "runtimeExecutable": "nodemon",
+            "console": "integratedTerminal",
+            "processId": "${command:PickProcess}"
+        }
+    ]
+}
