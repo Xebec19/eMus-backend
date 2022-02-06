@@ -1,8 +1,13 @@
-@import "@material/textfield/mdc-text-field";
-
-.username,
-.password {
-  display: flex;
-  margin: 20px auto;
-  width: 300px;
+.login{
+  width: 100%;
+  overflow-x: hidden;
+  .login-card{
+    position: relative;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    .form-group{
+      padding: 2rem 4rem;
+    }
+  }
 }
