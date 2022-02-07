@@ -1,0 +1,116 @@
+.login {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.login .login-card {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.login .login-card .form-group {
+  font-family: "Quattrocento Sans", sans-serif;
+  padding: 1rem 4rem;
+}
+
+.login .login-card .form-group .form-control {
+  margin-top: 1rem;
+}
+
+.login .login-card .form-group .form-control .form-control__input__active {
+  padding: 5px;
+  margin: 5px 0px;
+}
+
+.login .login-card .form-group .form-action input {
+  width: 100%;
+}
+
+.login .login-card .form-group .form-action .form-action__submit__active {
+  display: none;
+}
+
+.login .login-card .action-btns {
+  padding: 0px 4rem;
+}
+
+.login .login-card .action-btns .action-btns__submit-btn__active {
+  padding: 5px;
+  width: 100%;
+  background-color: dodgerblue;
+}
+
+.login .login-card .action-links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.login .login-card .action-links .action-link-item {
+  margin: 1rem 0px;
+}
+
+.register {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.register .register-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.register .register-card .form-group {
+  font-family: "Quattrocento Sans", sans-serif;
+  padding: 1rem 4rem;
+}
+
+.register .register-card .form-group .form-control {
+  margin-top: 1rem;
+}
+
+.register .register-card .form-group .form-control .form-control__input__active {
+  padding: 5px;
+  margin: 5px 0px;
+}
+
+.register .register-card .form-group .form-action input {
+  width: 100%;
+}
+
+.register .register-card .form-group .form-action .form-action__submit__active {
+  display: none;
+}
+
+.register .register-card .action-btns {
+  padding: 0px 4rem;
+}
+
+.register .register-card .action-btns .action-btns__submit-btn__active {
+  padding: 5px;
+  width: 100%;
+  background-color: dodgerblue;
+}
+
+.register .register-card .action-links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.register .register-card .action-links .action-link-item {
+  margin: 1rem 0px;
+}
+/*# sourceMappingURL=auth.css.map */
