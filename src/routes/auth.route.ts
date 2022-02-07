@@ -9,7 +9,7 @@ app.route('/login')
 .post(errorHandler(loginForm));
 
 app.route('/register')
-.get(errorHandler(registerForm))
-//.post(errorHandler())
+.get(errorHandler(registerForm));
+// .post(errorHandler())
 
 export default app;
