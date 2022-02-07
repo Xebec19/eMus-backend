@@ -1,9 +1,0 @@
-parent: /user 
-    
-    child route: /login
-    desc: User logins using email or user_name and password
-
-    child route: /register
-    desc: User registers using email, first name, last_name, user_name, password
-
-parent: /role  

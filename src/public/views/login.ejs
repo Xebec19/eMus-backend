@@ -1,12 +1,29 @@
 <link rel="stylesheet" href="/css/login.css">
 <div class="login">
-<div class="login-card">
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="text" name="email"/>
-    <br/>
-    <label for="password">Password</label>
-    <input type="password" name="password"/>
+  <div class="login-card">
+    <form class="form-group" method="POST" action="/">
+      <div class="form-control">
+        <label for="email">Email</label>
+        <input type="text" class="form-control__input__active" name="email" />
+      </div>
+      <div class="form-control">
+        <label for="password">Password</label>
+        <input type="password" class="form-control__input__active" name="password" />
+      </div>
+      <div class="form-action">
+        <input class="form-action__submit__active" type="submit" name="submit">
+      </div>
+    </form>
+    <div class="action-btns">
+      <button class="action-btns__submit-btn__active">Submit</button>
+    </div>
+    <div class="action-links">
+      <a href="#" class="action-link-item action-link__new-acc__active">
+        New Account
+      </a>
+      <a href="#" class="action-link-item action-link__terms-and-conditions__active">
+        Terms and conditions
+      </a>
+    </div>
   </div>
-</div>
 </div>

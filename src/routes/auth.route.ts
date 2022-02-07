@@ -2,8 +2,10 @@ import express from 'express';
 import loginForm from '../controllers/auth.controllers';
 import { errorHandler } from '../utils/errorHandler.middleware';
 
-const router = express.Router();
+const app = express.Router();
 
-router.get('/login',errorHandler(loginForm));
+app.route('/login')
+.get(errorHandler(loginForm))
+.post(errorHandler(loginForm))
 
-export default router;
+export default app;

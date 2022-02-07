@@ -26,6 +26,7 @@ body {
 
 .home__nav .nav__links a {
   color: #ffcce7;
+  text-decoration: none;
 }
 
 .home__nav .nav__links ul {
