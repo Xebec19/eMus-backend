@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/auth.css">
 <div class="register">
     <div class="register-card">
-        <form class="form-group" method="POST" action="/">
+        <form class="form-group" method="POST" action="/auth/register">
             <div class="form-control">
                 <label for="firstName">First Name</label>
                 <input type="text" class="form-control__input__active" name="firstName" required/>
@@ -27,7 +27,7 @@
             </div>
         </form>
         <div class="action-btns">
-            <button class="action-btns__submit-btn__active">Submit</button>
+            <button class="action-btns__submit-btn__active" onclick="submitForm()">Submit</button>
         </div>
         <div class="action-links">
             <a href="#" class="action-link-item action-link__new-acc__active">
@@ -39,3 +39,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    const submitForm = () => {
+        const formSubmit = document.querySelector('input[name=submit]');
+        formSubmit.click();
+    }
+</script>
