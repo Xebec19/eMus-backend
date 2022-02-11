@@ -6,6 +6,7 @@ import { statusCodes } from "./utils/status-codes.map";
 import publicApis from './routes/public.route';
 import logger from "./utils/logger.util";
 import morganMiddleware from "./utils/morgan.utils";
+import sequelize from "./database/postgres-connection";
 
 const app = express()
 
@@ -17,6 +18,18 @@ app.use(expressEjsLayouts);
 app.set('layout', 'layouts/main');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/public/views'));
+
+const init = async () => {
+  try {
+    await sequelize.authenticate();
+    logger.log({ level: 'info', message: 'Postgres ::: Success' });
+  } catch (error: any) {
+    logger.error({ message: 'Postgres ::: Failed' });
+    logger.error({ stack: error.stack });
+  }
+};
+
+init();
 
 app.get('/', (req: Request, res: Response) => res.redirect('/public/home'));
 

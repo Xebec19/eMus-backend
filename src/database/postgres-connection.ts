@@ -1,21 +1,17 @@
-import { Sequelize } from 'sequelize/dist';
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
 import env from '../environments';
-import logger from '../utils/logger.util';
+import Logger from '../utils/logger.util';
+
+dotenv.config();
 
 const { database, username, password, host } = env;
+
+Logger.info(env);
 
 const sequelize = new Sequelize(database, username, password, {
   host,
   dialect: 'postgres'
 });
-
-const init = async () => {
-  try {
-    await sequelize.authenticate();
-    logger.log({ level:'info',message:'Postgres ::: Success' });
-  } catch (error: any) {
-    logger.error({ message:'Postgres ::: Failed' });
-  }
-};
 
 export default sequelize;

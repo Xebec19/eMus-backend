@@ -15,6 +15,12 @@ export const registerForm = async (req: Request, res: Response) => {
     res.end();
 };
 
+/**
+ * @route /auth/register
+ * @param req email, password
+ * @param res 
+ */
 export const registerUser = async (req: Request, res: Response) => {
     Logger.info('request body',req.body);
-}
+    res.json({ message:'Success' }).end();
+};
