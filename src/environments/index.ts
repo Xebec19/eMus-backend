@@ -1,5 +1,10 @@
 import { IEnvironment } from '../abstractions/interfaces/index.model';
-
+import * as de from "dotenv";
+const dotenv = de.config();
+if (dotenv.error) {
+  console.error("Error occurred while setting dot env files : ", dotenv.error);
+}
+ 
 const env:IEnvironment = {
     database: process.env.DB_DATABASE ?? '',
     username: process.env.DB_USERNAME ?? '',

@@ -25,7 +25,6 @@ const init = async () => {
     logger.log({ level: 'info', message: 'Postgres ::: Success' });
   } catch (error: any) {
     logger.error({ message: 'Postgres ::: Failed' });
-    logger.error({ stack: error.stack });
   }
 };
 

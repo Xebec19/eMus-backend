@@ -7,8 +7,6 @@ dotenv.config();
 
 const { database, username, password, host } = env;
 
-Logger.info(env);
-
 const sequelize = new Sequelize(database, username, password, {
   host,
   dialect: 'postgres'
