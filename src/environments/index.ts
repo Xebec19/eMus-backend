@@ -1,9 +1,10 @@
 import * as de from 'dotenv';
 import { IEnvironment } from '../abstractions/interfaces/index.model';
+import Logger from '../utils/logger.util';
 
 const dotenv = de.config();
 if (dotenv.error) {
-  console.error('Error occurred while setting dot env files : ', dotenv.error);
+  Logger.error('Error occurred while setting dot env files : ', dotenv.error);
 }
  
 const env:IEnvironment = {

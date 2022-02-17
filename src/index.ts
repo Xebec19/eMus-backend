@@ -1,5 +1,4 @@
 import express, { NextFunction, Request, Response } from "express"
-import expressEjsLayouts from "express-ejs-layouts";
 import auth from "./routes/auth.route"
 import path from 'path';
 import { statusCodes } from "./utils/status-codes.map";
@@ -11,13 +10,6 @@ import sequelize from "./database/postgres-connection";
 const app = express()
 
 app.use(morganMiddleware);
-app.use('/css', express.static(path.join(__dirname, '/public/css')));
-app.use('/img', express.static(path.join(__dirname, '/public/images')));
-app.use('/js', express.static(path.join(__dirname, '/public/js')))
-app.use(expressEjsLayouts);
-app.set('layout', 'layouts/main');
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/public/views'));
 
 const init = async () => {
   try {
@@ -29,8 +21,6 @@ const init = async () => {
 };
 
 init();
-
-app.get('/', (req: Request, res: Response) => res.redirect('/public/home'));
 
 app.use('/public', publicApis);
 app.use("/auth", auth);
