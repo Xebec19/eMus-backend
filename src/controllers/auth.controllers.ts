@@ -1,7 +1,4 @@
-import { Request, Response } from 'express';
-import Logger from '../utils/logger.util';
-import sendResponse from '../utils/response.util';
-import { statusCodes } from '../utils/status-codes.map';
+import { NextFunction, Request, Response } from 'express';
 
 export const loginPost = async (req: Request, res: Response) => {
     console.log('Work in progress'); // TODO add controller for login
@@ -12,6 +9,11 @@ export const loginPost = async (req: Request, res: Response) => {
  * @param req email, password
  * @param res 
  */
-export const registerUser = async (req: Request, res: Response) => {
-    sendResponse(res,{ status:true,message:'Success',statusCode:statusCodes.SUCCESS,data:[] });
+export const registerUser = async (req: Request, res: Response, next:NextFunction) => {
+    try{
+        const { email, user_name:userName, first_name:firstName, last_name:lastName, password } = req.body;
+        
+    } catch(error:any){
+        next(error);
+    }
 };

@@ -5,7 +5,6 @@ import { statusCodes } from "./utils/status-codes.map";
 import publicApis from './routes/public.route';
 import logger from "./utils/logger.util";
 import morganMiddleware from "./utils/morgan.utils";
-import sequelize from "./database/postgres-connection";
 
 const app = express()
 
@@ -13,7 +12,7 @@ app.use(morganMiddleware);
 
 const init = async () => {
   try {
-    await sequelize.authenticate();
+    //await sequelize.authenticate();
     logger.log({ level: 'info', message: 'Postgres ::: Success' });
   } catch (error: any) {
     logger.error({ message: 'Postgres ::: Failed' });
