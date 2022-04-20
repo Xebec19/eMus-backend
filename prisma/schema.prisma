@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model counters {
+  counter_id                       String    @id @db.VarChar(20)
+  counter_code                     String    @db.VarChar(50)
+  store_id                         String    @db.VarChar(20)
+  status                           String?   @default("active") @db.VarChar(10)
+  created_by                       String    @db.VarChar(20)
+  updated_by                       String    @db.VarChar(20)
+  created_on                       DateTime? @default(now()) @db.Timestamp(6)
+  updated_on                       DateTime? @default(now()) @db.Timestamp(6)
+  assignee                         String    @db.VarChar(20)
+  member_id                        String    @db.VarChar(20)
+  users_counters_assigneeTousers   users     @relation("counters_assigneeTousers", fields: [assignee], references: [user_id], onUpdate: NoAction, map: "fk_assignee")
+  users_counters_created_byTousers users     @relation("counters_created_byTousers", fields: [created_by], references: [user_id], onUpdate: NoAction, map: "fk_store_creater")
+  members                          members   @relation(fields: [member_id], references: [member_id], onUpdate: NoAction, map: "fk_member")
+  stores                           stores    @relation(fields: [store_id], references: [store_id], onUpdate: NoAction, map: "fk_store")
+  users_counters_updated_byTousers users     @relation("counters_updated_byTousers", fields: [updated_by], references: [user_id], onUpdate: NoAction, map: "fk_store_updater")
+  queues                           queues[]
+}
+
+model members {
+  member_id                       String     @id @db.VarChar(20)
+  user_id                         String     @db.VarChar(20)
+  role_id                         String     @db.VarChar(20)
+  store_id                        String     @db.VarChar(20)
+  created_on                      DateTime?  @default(now()) @db.Timestamp(6)
+  updated_on                      DateTime?  @default(now()) @db.Timestamp(6)
+  created_by                      String     @db.VarChar(20)
+  updated_by                      String     @db.VarChar(20)
+  status                          String?    @default("active") @db.VarChar(20)
+  users_members_created_byTousers users      @relation("members_created_byTousers", fields: [created_by], references: [user_id], onUpdate: NoAction, map: "fk_member_creater")
+  roles                           roles      @relation(fields: [role_id], references: [role_id], onUpdate: NoAction, map: "fk_member_role")
+  stores                          stores     @relation(fields: [store_id], references: [store_id], onUpdate: NoAction, map: "fk_member_store")
+  users_members_updated_byTousers users      @relation("members_updated_byTousers", fields: [updated_by], references: [user_id], onUpdate: NoAction, map: "fk_member_updater")
+  users_members_user_idTousers    users      @relation("members_user_idTousers", fields: [user_id], references: [user_id], onUpdate: NoAction, map: "fk_member_user")
+  counters                        counters[]
+}
+
+model permissions {
+  permission_id                       String    @id @db.VarChar(20)
+  permission_name                     String    @db.VarChar(100)
+  description                         String?
+  created_on                          DateTime? @default(now()) @db.Timestamp(6)
+  updated_on                          DateTime? @default(now()) @db.Timestamp(6)
+  created_by                          String    @db.VarChar(20)
+  updated_by                          String    @db.VarChar(20)
+  users_permissions_created_byTousers users     @relation("permissions_created_byTousers", fields: [created_by], references: [user_id], onUpdate: NoAction, map: "fk_permission_creater")
+  users_permissions_updated_byTousers users     @relation("permissions_updated_byTousers", fields: [updated_by], references: [user_id], onUpdate: NoAction, map: "fk_permission_updator")
+}
+
+model queues {
+  queue_id         String    @id @db.VarChar(20)
+  user_id          String    @db.VarChar(20)
+  created_on       DateTime? @default(now()) @db.Timestamp(6)
+  updated_on       DateTime? @default(now()) @db.Timestamp(6)
+  status           String?   @default("active") @db.VarChar(10)
+  counter_assigned String    @db.VarChar(20)
+  counters         counters  @relation(fields: [counter_assigned], references: [counter_id], onDelete: SetNull, onUpdate: NoAction, map: "fk_queue_counter_assigned")
+  users            users     @relation(fields: [user_id], references: [user_id], onDelete: SetNull, onUpdate: NoAction, map: "fk_queue_user")
+}
+
+model role_permission_policies {
+  policy_id                                        String    @id @db.VarChar(20)
+  role_id                                          String    @db.VarChar(20)
+  permission_id                                    String    @db.VarChar(20)
+  created_on                                       DateTime? @default(now()) @db.Timestamp(6)
+  updated_on                                       DateTime? @default(now()) @db.Timestamp(6)
+  created_by                                       String    @db.VarChar(20)
+  updated_by                                       String    @db.VarChar(20)
+  users_role_permission_policies_created_byTousers users     @relation("role_permission_policies_created_byTousers", fields: [created_by], references: [user_id], onUpdate: NoAction, map: "fk_policy_creater")
+  users_role_permission_policies_updated_byTousers users     @relation("role_permission_policies_updated_byTousers", fields: [updated_by], references: [user_id], onUpdate: NoAction, map: "fk_policy_updater")
+}
+
+model roles {
+  role_id                       String    @id @db.VarChar(20)
+  role_name                     String    @db.VarChar(50)
+  description                   String?
+  status                        String?   @default("active") @db.VarChar(10)
+  created_on                    DateTime? @default(now()) @db.Timestamp(6)
+  updated_on                    DateTime? @default(now()) @db.Timestamp(6)
+  created_by                    String    @db.VarChar(20)
+  updated_by                    String    @db.VarChar(20)
+  users_roles_created_byTousers users     @relation("roles_created_byTousers", fields: [created_by], references: [user_id], onUpdate: NoAction, map: "fk_role_creater")
+  users_roles_updated_byTousers users     @relation("roles_updated_byTousers", fields: [updated_by], references: [user_id], onUpdate: NoAction, map: "fk_role_updater")
+  members                       members[]
+}
+
+model sessions {
+  token_id   String    @id @db.VarChar(20)
+  user_id    String    @db.VarChar(20)
+  token      String
+  created_on DateTime? @default(now()) @db.Timestamp(6)
+  users      users     @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_session_user")
+}
+
+model stores {
+  store_id                       String     @id @db.VarChar(20)
+  store_name                     String     @db.VarChar(100)
+  description                    String?
+  status                         String?    @default("active") @db.VarChar(10)
+  created_on                     DateTime?  @default(now()) @db.Timestamp(6)
+  updated_on                     DateTime?  @default(now()) @db.Timestamp(6)
+  created_by                     String     @db.VarChar(20)
+  updated_by                     String     @db.VarChar(20)
+  users_stores_created_byTousers users      @relation("stores_created_byTousers", fields: [created_by], references: [user_id], onUpdate: NoAction, map: "fk_store_creater")
+  users_stores_updated_byTousers users      @relation("stores_updated_byTousers", fields: [updated_by], references: [user_id], onUpdate: NoAction, map: "fk_store_updater")
+  counters                       counters[]
+  members                        members[]
+}
+
+model users {
+  user_id                                                             String                     @id @db.VarChar(20)
+  user_name                                                           String
+  first_name                                                          String
+  last_name                                                           String?
+  email                                                               String                     @unique @db.VarChar(100)
+  password                                                            String
+  created_on                                                          DateTime?                  @default(now()) @db.Timestamp(6)
+  updated_on                                                          DateTime?                  @default(now()) @db.Timestamp(6)
+  status                                                              String?                    @default("active") @db.VarChar(10)
+  counters_counters_assigneeTousers                                   counters[]                 @relation("counters_assigneeTousers")
+  counters_counters_created_byTousers                                 counters[]                 @relation("counters_created_byTousers")
+  counters_counters_updated_byTousers                                 counters[]                 @relation("counters_updated_byTousers")
+  members_members_created_byTousers                                   members[]                  @relation("members_created_byTousers")
+  members_members_updated_byTousers                                   members[]                  @relation("members_updated_byTousers")
+  members_members_user_idTousers                                      members[]                  @relation("members_user_idTousers")
+  permissions_permissions_created_byTousers                           permissions[]              @relation("permissions_created_byTousers")
+  permissions_permissions_updated_byTousers                           permissions[]              @relation("permissions_updated_byTousers")
+  queues                                                              queues[]
+  role_permission_policies_role_permission_policies_created_byTousers role_permission_policies[] @relation("role_permission_policies_created_byTousers")
+  role_permission_policies_role_permission_policies_updated_byTousers role_permission_policies[] @relation("role_permission_policies_updated_byTousers")
+  roles_roles_created_byTousers                                       roles[]                    @relation("roles_created_byTousers")
+  roles_roles_updated_byTousers                                       roles[]                    @relation("roles_updated_byTousers")
+  sessions                                                            sessions[]
+  stores_stores_created_byTousers                                     stores[]                   @relation("stores_created_byTousers")
+  stores_stores_updated_byTousers                                     stores[]                   @relation("stores_updated_byTousers")
+}
