@@ -13,7 +13,7 @@ export const loginPost = async (req: Request, res: Response) => {
  */
 export const registerUser = async (req: Request, res: Response, next:NextFunction) => {
     try{
-        let { email, user_name:userName, first_name:firstName, last_name:lastName, password } = req.body;
+        const { email, user_name:userName, first_name:firstName, last_name:lastName, password } = req.body;
             
     } catch(error:any){
         next(error);

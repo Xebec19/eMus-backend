@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
-import env from '../environments';
 import { Client, Pool } from 'pg';
+import env from '../environments';
+
 dotenv.config();
 
 const { database, user, password, host, port } = env;
