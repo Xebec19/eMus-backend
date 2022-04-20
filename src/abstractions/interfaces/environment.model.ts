@@ -1,6 +1,7 @@
 export interface IEnvironment {
     database: string,
-    username: string,
+    user: string,
     password: string,
-    host: string
+    host: string,
+    port: number | undefined
 }

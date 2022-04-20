@@ -6,13 +6,15 @@ export const loginPost = async (req: Request, res: Response) => {
 
 /**
  * @route /auth/register
- * @param req email, password
- * @param res 
+ * @type POST
+ * @desc creates a new user
+ * @param { email: string, user_name: string, first_name: string, last_name: string, password: string} req
+ * @param {any} res
  */
 export const registerUser = async (req: Request, res: Response, next:NextFunction) => {
     try{
-        const { email, user_name:userName, first_name:firstName, last_name:lastName, password } = req.body;
-        
+        let { email, user_name:userName, first_name:firstName, last_name:lastName, password } = req.body;
+            
     } catch(error:any){
         next(error);
     }
