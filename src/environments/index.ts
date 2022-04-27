@@ -12,7 +12,8 @@ const env:IEnvironment = {
     user: process.env.DB_USERNAME ?? '',
     password: process.env.DB_PASSWORD ?? '',
     host: process.env.DB_HOST ?? '',
-    port: +process.env.DB_PORT ?? ''
+    port: process.env.DB_PORT ?? 0,
+    jwtSecret: process.env.JWT_SECRET ?? ''
 };
 
 export default env;

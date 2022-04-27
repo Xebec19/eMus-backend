@@ -3,5 +3,6 @@ export interface IEnvironment {
     user: string,
     password: string,
     host: string,
-    port: number | undefined
+    port: number | string,
+    jwtSecret: string
 }
