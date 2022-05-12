@@ -1,11 +1,11 @@
 import { users } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
-import { IResponse } from '../abstractions/interfaces/response.model';
 import db from '../database/postgres-connection';
 import { statusCodes } from '../utils/status-codes.map';
 import { hashString } from '../utils/bcrypt.utils';
 import AppError from '../abstractions/classes/app-error.class';
 import { jwtSign } from '../utils/jwt.utils';
+import randomString from '../utils/randomString.utils';
 
 export const loginPost = async (req: Request, res: Response) => {
     console.log('Work in progress'); // TODO add controller for login
@@ -25,6 +25,7 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
         }
         const user = await db.users.create({
             data: <users>{
+                user_id: randomString(),
                 user_name:userName,
                 email,
                 first_name:firstName,
@@ -32,6 +33,6 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
                 password: hash,
             },
         });
-        const token = jwtSign(user);
-        return res.status(statusCodes.SUCCESS).json({ status: true, data: token, message: 'User created successfully'});
+        // const token = jwtSign(user);
+        return res.status(statusCodes.SUCCESS).json({ status: true, data: null, message: 'User created successfully' });
 };

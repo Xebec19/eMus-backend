@@ -5,11 +5,12 @@ import { statusCodes } from './utils/status-codes.map';
 import publicApis from './routes/public.route';
 import morganMiddleware from './utils/morgan.utils';
 import Logger from './utils/logger.util';
-import { IResponse } from './abstractions/interfaces/index.model';
 import AppError from './abstractions/classes/app-error.class';
 
 const app = express();
 
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 app.use(morganMiddleware);
 
 app.use('/public', publicApis);

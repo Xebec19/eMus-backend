@@ -1,6 +1,5 @@
 import Ajv from 'ajv';
 import { NextFunction, Request, Response } from 'express';
-import { IResponse } from '../abstractions/interfaces/response.model';
 import Logger from './logger.util';
 import { statusCodes } from './status-codes.map';
 
