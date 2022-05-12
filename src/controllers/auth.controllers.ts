@@ -2,7 +2,6 @@ import { users } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 import { IResponse } from '../abstractions/interfaces/response.model';
 import db from '../database/postgres-connection';
-import sendResponse from '../utils/response.util';
 import { statusCodes } from '../utils/status-codes.map';
 import { hashString } from '../utils/bcrypt.utils';
 import AppError from '../abstractions/classes/app-error.class';
@@ -34,11 +33,5 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
             },
         });
         const token = jwtSign(user);
-        const payload:IResponse = {
-            statusCode: statusCodes.SUCCESS,
-            status: true,
-            data: token,
-            message: 'User created successfully'
-        };
-        return sendResponse(payload);
+        return res.status(statusCodes.SUCCESS).json({ status: true, data: token, message: 'User created successfully'});
 };
