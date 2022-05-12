@@ -17,6 +17,7 @@ const validateSchema = (schema:any) => (req:Request,res:Response,next:NextFuncti
                 message: 'Invalid input',
                 data: ajv.errors || []
             };
+            res.status(statusCodes.INVALID_INPUT).json({ status:false,message:'Invalid input', data: ajv.errors}).end()
             return sendResponse(payload);
         };
         return next();
