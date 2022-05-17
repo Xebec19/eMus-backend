@@ -20,12 +20,12 @@ const db = new PrismaClient({
         level: 'warn',
       },
     ],
-  })
+  });
   
 db.$on('query', (e) => {
-    Logger.info('Query: ' + e.query)
-    Logger.info('Params: ' + e.params)
-    Logger.info('Duration: ' + e.duration + 'ms')
+    Logger.info(`Query: ${  e.query}`);
+    Logger.info(`Params: ${  e.params}`);
+    Logger.info(`Duration: ${  e.duration  }ms`);
 });
 
 export default db;

@@ -8,14 +8,13 @@ import { jwtSign } from '../utils/jwt.utils';
 import randomString from '../utils/randomString.utils';
 
 export const loginPost = async (req: Request, res: Response) => {
-    console.log('Work in progress'); // TODO add controller for login
+    res.send({ msg:'Work in progress' });
 };
 
 /**
  * @route /auth/register
  * @type POST
  * @desc creates a new user
- * @param Req<{ email: string, user_name: string, first_name: string, last_name: string, password: string }>
  */
 export const registerUser = async (req: Request, res: Response, next:NextFunction) => {
         const { email, user_name:userName, first_name:firstName, last_name:lastName, password } = req.body;
@@ -23,7 +22,12 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
         if(!hash) {
             throw new AppError('Invalid hash!');
         }
-        const user = await db.users.create({
+        const isEmailDuplicate = await db.users.findFirst({ where:{ email },select:{ email:true } });
+        /* eslint-disable no-prototype-builtins */
+        if(isEmailDuplicate && isEmailDuplicate.hasOwnProperty('email')){
+            throw new AppError(`User exists : ${email}`,401,true);
+        }
+        await db.users.create({
             data: <users>{
                 user_id: randomString(),
                 user_name:userName,
@@ -33,6 +37,5 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
                 password: hash,
             },
         });
-        // const token = jwtSign(user);
         return res.status(statusCodes.SUCCESS).json({ status: true, data: null, message: 'User created successfully' });
 };
