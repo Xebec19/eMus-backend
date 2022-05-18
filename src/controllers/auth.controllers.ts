@@ -24,7 +24,7 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
             throw new AppError('Invalid hash!');
         }
         const isEmailExist = await checkEmail(email);
-        if(!isEmailExist){
+        if(isEmailExist){
             throw new AppError(`User exists : ${email}`,401,true);
         }
         await db.users.create({

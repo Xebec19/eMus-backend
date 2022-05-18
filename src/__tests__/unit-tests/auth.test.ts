@@ -1,6 +1,5 @@
-import request from "supertest"
-import app from '../../index'
-import { dbMock } from '../../database/mock-database';
+import request from "supertest";
+import app from '../../index';
 
 describe("Test authentication",() => {
     test("User should not be able to register with existing email", async () => {
