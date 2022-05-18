@@ -1,11 +1,12 @@
 import { users } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
-import db from '../database/postgres-connection';
+import db from '../database/prisma-connection';
 import { statusCodes } from '../utils/status-codes.map';
 import { hashString } from '../utils/bcrypt.utils';
 import AppError from '../abstractions/classes/app-error.class';
 import { jwtSign } from '../utils/jwt.utils';
 import randomString from '../utils/randomString.utils';
+import { checkEmail } from '../database/auth.context';
 
 export const loginPost = async (req: Request, res: Response) => {
     res.send({ msg:'Work in progress' });
@@ -22,9 +23,8 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
         if(!hash) {
             throw new AppError('Invalid hash!');
         }
-        const isEmailDuplicate = await db.users.findFirst({ where:{ email },select:{ email:true } });
-        /* eslint-disable no-prototype-builtins */
-        if(isEmailDuplicate && isEmailDuplicate.hasOwnProperty('email')){
+        const isEmailExist = await checkEmail(email);
+        if(!isEmailExist){
             throw new AppError(`User exists : ${email}`,401,true);
         }
         await db.users.create({

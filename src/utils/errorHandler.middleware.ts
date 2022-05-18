@@ -11,7 +11,7 @@ const errorHandler = (fn:(req:Request, res:Response, next:NextFunction) => void)
             if(err.hasOwnProperty('isOperational') && err.isOperational){
                 Logger.error(err.message);
                 const payload:IResponse = {
-                status: true,
+                status: false,
                 data: null,
                 message: err.message
                 };

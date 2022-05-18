@@ -1,5 +1,5 @@
 import AppError from './abstractions/classes/app-error.class';
-import prisma from './database/postgres-connection';
+import prisma from './database/prisma-connection';
 import app from './index';
 import Logger from './utils/logger.util';
 const port = process.env.PORT || 3000
