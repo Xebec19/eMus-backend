@@ -1,5 +1,5 @@
-import { IUser } from '../abstractions/interfaces/index.model';
 import { users } from '@prisma/client';
+import { IUser } from '../abstractions/interfaces/index.model';
 import db from './prisma-connection';
 import randomString from '../utils/randomString.utils';
 
@@ -32,7 +32,7 @@ export const createUser = async (payload:IUser) => {
             last_name,
             password,
         },
-        select:{ user_id: true}
+        select:{ user_id: true }
     });
 
     return user;
