@@ -1,12 +1,12 @@
-import { users } from '@prisma/client';
+
 import { NextFunction, Request, Response } from 'express';
-import db from '../database/prisma-connection';
 import { statusCodes } from '../utils/status-codes.map';
 import { hashString } from '../utils/bcrypt.utils';
 import AppError from '../abstractions/classes/app-error.class';
 import { jwtSign } from '../utils/jwt.utils';
 import randomString from '../utils/randomString.utils';
-import { checkEmail } from '../database/auth.context';
+import { checkEmail, createUser } from '../database/auth.context';
+import { IUser } from '../abstractions/interfaces/index.model';
 
 export const loginPost = async (req: Request, res: Response) => {
     res.send({ msg:'Work in progress' });
@@ -27,15 +27,14 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
         if(isEmailExist){
             throw new AppError(`User exists : ${email}`,401,true);
         }
-        await db.users.create({
-            data: <users>{
+        const payload:IUser = {
                 user_id: randomString(),
                 user_name:userName,
                 email,
                 first_name:firstName,
                 last_name:lastName,
                 password: hash,
-            },
-        });
-        return res.status(statusCodes.SUCCESS).json({ status: true, data: null, message: 'User created successfully' });
+            };
+        const user = await createUser(payload);
+        return res.status(statusCodes.SUCCESS).json({ status: true, data: user, message: 'User created successfully' });
 };

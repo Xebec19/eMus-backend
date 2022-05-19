@@ -1,4 +1,7 @@
+import { IUser } from '../abstractions/interfaces/index.model';
+import { users } from '@prisma/client';
 import db from './prisma-connection';
+import randomString from '../utils/randomString.utils';
 
 /**
  * @desc checks if a given email exists in db
@@ -12,4 +15,25 @@ export const checkEmail = async (payload:string) => {
         return true;
     } 
     return false;
+};
+
+/**
+ * @desc creates new user
+ * @param payload 
+ */
+export const createUser = async (payload:IUser) => {
+    const { user_name, email, first_name, last_name, password } = payload;
+    const user = await db.users.create({
+        data: <users>{
+            user_id: randomString(),
+            user_name,
+            email,
+            first_name,
+            last_name,
+            password,
+        },
+        select:{ user_id: true}
+    });
+
+    return user;
 };
