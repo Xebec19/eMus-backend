@@ -8,15 +8,16 @@ export const errorHandler = (fn:(req:Request, res:Response, next:NextFunction) =
             await fn(req, res, next);
         } catch(err:AppError | any){
             /* eslint-disable no-prototype-builtins */
-            if(err.hasOwnProperty('isOperational') && err.isOperational){
-                Logger.error(err.message);
+            if(err?.isOperational){
+                if(process.env.NODE_ENV !== 'test'){
+                    Logger.error(err.stack);
+                }
                 const payload:IResponse = {
                 status: false,
                 data: null,
                 message: err.message
                 };
-                res.status(err.statusCode).json(payload).end();
-                return;
+                return res.status(err.statusCode).json(payload);
             }
             next(err);
         }

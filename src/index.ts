@@ -16,11 +16,10 @@ app.use('/public', publicApis);
 app.use('/auth', auth);
 
 app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
-  Logger.error(err);
+  Logger.error(err.stack);
 if(!err.isOperational){
   process.exit(1);
 }
-res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ status: false, data: null, message: err.message }).end();
 });
 
 export default app;

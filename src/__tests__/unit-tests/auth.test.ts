@@ -37,11 +37,38 @@ describe("Test authentication",() => {
 
     test("User should able to login with correct user name and password", async () => {
         const payload = {
-            "user_identifier":"xebec19",
+            "user_identifier":"rohan3@gmail.com",
             "password":"123password",
         };
         const response = await request(app).post("/auth/login").send(payload);
         expect(response.body.status).toBeTruthy();
         expect(response.statusCode).toBe(201);
+    });
+
+    test("User should not able to login with incorrect password", async () => {
+        const payload = {
+            "user_identifier":"rohan3@gmail.com",
+            "password":"123passwo",
+        };
+        const response = await request(app).post("/auth/login").send(payload);
+        expect(response.body.status).toBeFalsy();
+        expect(response.statusCode).toBe(400);
+    });
+
+    test("User should not able to login with invalid params", async () => {
+        const payload = {};
+        const response = await request(app).post("/auth/login").send(payload);
+        expect(response.body.status).toBeFalsy();
+        expect(response.statusCode).toBe(400);
+    });
+
+    test("User should not able to login with invalid user name or email", async () => {
+        const payload = {
+            "user_identifier":"rohan3mail.com",
+            "password":"123password",
+        };
+        const response = await request(app).post("/auth/login").send(payload);
+        expect(response.body.status).toBeFalsy();
+        expect(response.statusCode).toBe(400);
     });
 })

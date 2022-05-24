@@ -2,8 +2,8 @@
 import { NextFunction, Request, Response } from 'express';
 import AppError from '../abstractions/classes/app-error.class';
 import { checkEmail, createUser, findUser } from '../database/auth.context';
-import { IUser } from '../abstractions/interfaces/index.model';
-import { compareString, hashString, randomString, statusCodes } from '../utils';
+import { IResponse, IUser } from '../abstractions/interfaces/index.model';
+import { compareString, hashString, jwtSign, randomString, statusCodes } from '../utils';
 
 /**
  * @route /auth/register
@@ -29,7 +29,10 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
                 password: hash,
             };
         const user = await createUser(payload);
-        return res.status(statusCodes.SUCCESS).json({ status: true, data: user, message: 'User created successfully' });
+        const response: IResponse = {
+            status: true, data: user, message: 'User created successfully'
+        }
+        return res.status(statusCodes.SUCCESS).json(response);
 };
 
 /**
@@ -48,4 +51,11 @@ export const loginUser = async (req:Request, res:Response) => {
     {
         throw new AppError('Password did not match!',statusCodes.INVALID_INPUT,true);
     }
+    const token = await jwtSign(user.user_id);
+    const response: IResponse = {
+        status: true,
+        message: 'User logged in successfully',
+        data: token
+    }
+    return res.status(201).json(response).end();
 };

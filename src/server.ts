@@ -10,7 +10,7 @@ const server = app.listen(port, () => {
 
 process.on('SIGTERM',() => {
     server.close(async () => {
-        console.log('Process terminated');
+        Logger.error('Process terminated');
         await prisma.$disconnect();
     })
 });
