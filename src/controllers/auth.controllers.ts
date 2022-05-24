@@ -1,16 +1,9 @@
 
 import { NextFunction, Request, Response } from 'express';
-import { statusCodes } from '../utils/status-codes.map';
-import { hashString } from '../utils/bcrypt.utils';
 import AppError from '../abstractions/classes/app-error.class';
-import { jwtSign } from '../utils/jwt.utils';
-import randomString from '../utils/randomString.utils';
-import { checkEmail, createUser } from '../database/auth.context';
+import { checkEmail, createUser, findUser } from '../database/auth.context';
 import { IUser } from '../abstractions/interfaces/index.model';
-
-export const loginPost = async (req: Request, res: Response) => {
-    res.send({ msg:'Work in progress' });
-};
+import { compareString, hashString, randomString, statusCodes } from '../utils';
 
 /**
  * @route /auth/register
@@ -37,4 +30,22 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
             };
         const user = await createUser(payload);
         return res.status(statusCodes.SUCCESS).json({ status: true, data: user, message: 'User created successfully' });
+};
+
+/**
+ * @route /auth/login
+ * @type POST
+ * @desc checks user credentials and returns jwt token
+ */
+export const loginUser = async (req:Request, res:Response) => {
+    const { user_identifier:userIdentifier, password } = req.body;
+    const user = await findUser(userIdentifier);
+    if(!user)
+    {
+        throw new AppError('User does not exists!',statusCodes.INVALID_INPUT,true);
+    }
+    if(!compareString(password,user.password))
+    {
+        throw new AppError('Password did not match!',statusCodes.INVALID_INPUT,true);
+    }
 };

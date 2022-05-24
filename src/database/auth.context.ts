@@ -1,14 +1,13 @@
 import { users } from '@prisma/client';
 import { IUser } from '../abstractions/interfaces/index.model';
+import { randomString } from '../utils';
 import db from './prisma-connection';
-import randomString from '../utils/randomString.utils';
 
 /**
  * @desc checks if a given email exists in db
  * @params {string} email
  * @returns {boolean} true if email exists else false
  */
- /* eslint-disable import/prefer-default-export */
 export const checkEmail = async (payload:string) => {
     const { email } = ( await db.users.findFirst({ where: { email: payload }, select:{ email:true } }) || {});
     if(email){
@@ -19,7 +18,7 @@ export const checkEmail = async (payload:string) => {
 
 /**
  * @desc creates new user
- * @param payload 
+ * @param {IUser} payload 
  */
 export const createUser = async (payload:IUser) => {
     const { user_name, email, first_name, last_name, password } = payload;
@@ -35,5 +34,35 @@ export const createUser = async (payload:IUser) => {
         select:{ user_id: true }
     });
 
+    return user;
+};
+
+/**
+ * @desc fetches user data
+ * @param {string} userIdentifier
+ */
+export const findUser = async (userIdentifier:string): Promise<{user_id:string,password:string}|null> => {
+    const user = await db.users.findFirst({
+        where: {
+            OR: [
+                {
+                    email: {
+                        equals: userIdentifier,
+                        mode: 'insensitive'
+                    }
+                },
+                {
+                    user_name: {
+                        equals: userIdentifier,
+                        mode: 'insensitive'
+                    }
+                }
+            ]
+        },
+        select: {
+            user_id: true,
+            password: true
+        }
+    });
     return user;
 };

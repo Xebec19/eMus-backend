@@ -3,9 +3,8 @@ import path from 'path';
 import auth from './routes/auth.route';
 import { statusCodes } from './utils/status-codes.map';
 import publicApis from './routes/public.route';
-import morganMiddleware from './utils/morgan.utils';
-import Logger from './utils/logger.util';
 import AppError from './abstractions/classes/app-error.class';
+import { Logger, morganMiddleware } from './utils';
 
 const app = express();
 

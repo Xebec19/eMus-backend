@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
+import { Logger } from '.';
 import AppError from '../abstractions/classes/app-error.class';
 import { IResponse } from '../abstractions/interfaces/index.model';
-import Logger from './logger.util';
 
-const errorHandler = (fn:(req:Request, res:Response, next:NextFunction) => void) => async (req:Request, res:Response,next:NextFunction) => {
+export const errorHandler = (fn:(req:Request, res:Response, next:NextFunction) => void) => async (req:Request, res:Response,next:NextFunction) => {
         try{
             await fn(req, res, next);
         } catch(err:AppError | any){
@@ -21,5 +21,3 @@ const errorHandler = (fn:(req:Request, res:Response, next:NextFunction) => void)
             next(err);
         }
     };
-
-export default errorHandler;

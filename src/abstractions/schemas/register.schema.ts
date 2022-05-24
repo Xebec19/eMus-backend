@@ -8,7 +8,7 @@ interface IRequestBody {
     password: string
 }
 
-const registerSchema: JSONSchemaType<IRequestBody> = {
+export const registerSchema: JSONSchemaType<IRequestBody> = {
     type: "object",
     properties: {
         user_name: { type: "string"},
@@ -20,5 +20,3 @@ const registerSchema: JSONSchemaType<IRequestBody> = {
     required: ["user_name","first_name","last_name","email","password"],
     additionalProperties: false
 }
-
-export default registerSchema;

@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
+import { statusCodes } from '.';
 import AppError from '../abstractions/classes/app-error.class';
-import { statusCodes } from './status-codes.map';
 
 // hashes a given string
 export const hashString = async(text:string):Promise<string|any> => {
@@ -12,6 +12,4 @@ export const hashString = async(text:string):Promise<string|any> => {
 };
 
 // compares hash value saved in db with users input
-export const compareString = async(hash:string, original:string) => 
-    // todo compare password in db with user input password
-     false;
+export const compareString = (original:string, hash:string):boolean => bcrypt.compareSync(original,hash);

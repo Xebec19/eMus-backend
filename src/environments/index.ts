@@ -1,6 +1,6 @@
 import * as de from 'dotenv';
 import { IEnvironment } from '../abstractions/interfaces/index.model';
-import Logger from '../utils/logger.util';
+import { Logger } from '../utils';
 
 const dotenv = de.config();
 if (dotenv.error) {

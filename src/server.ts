@@ -1,7 +1,7 @@
 import AppError from './abstractions/classes/app-error.class';
 import prisma from './database/prisma-connection';
 import app from './index';
-import Logger from './utils/logger.util';
+import { Logger } from './utils';
 const port = process.env.PORT || 3000
 
 const server = app.listen(port, () => {
