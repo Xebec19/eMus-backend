@@ -5,7 +5,7 @@ import { IResponse } from '../abstractions/interfaces/index.model';
 
 export const errorHandler = (fn:(req:Request, res:Response, next:NextFunction) => void) => async (req:Request, res:Response,next:NextFunction) => {
         try{
-            await fn(req, res, next);
+            return await fn(req, res, next);
         } catch(err:AppError | any){
             /* eslint-disable no-prototype-builtins */
             if(err?.isOperational){
@@ -19,6 +19,6 @@ export const errorHandler = (fn:(req:Request, res:Response, next:NextFunction) =
                 };
                 return res.status(err.statusCode).json(payload);
             }
-            next(err);
+            return next(err);
         }
     };

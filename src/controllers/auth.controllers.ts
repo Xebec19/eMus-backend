@@ -31,7 +31,7 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
         const user = await createUser(payload);
         const response: IResponse = {
             status: true, data: user, message: 'User created successfully'
-        }
+        };
         return res.status(statusCodes.SUCCESS).json(response);
 };
 
@@ -56,6 +56,6 @@ export const loginUser = async (req:Request, res:Response) => {
         status: true,
         message: 'User logged in successfully',
         data: token
-    }
+    };
     return res.status(201).json(response).end();
 };
