@@ -29,7 +29,7 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
                 first_name:firstName,
                 last_name:lastName,
                 password: hash,
-                plan_id: plan_id + ''
+                plan_id: `${plan_id  }`
             };
         const user = await createUser(payload);
         const response: IResponse = {
