@@ -2,8 +2,6 @@ import express from 'express';
 import home from '../controllers/public.controllers';
 import { errorHandler } from '../utils';
 
-const router = express.Router();
+export const publicRoutes = express.Router();
 
-router.get('/home',errorHandler(home));
-
-export default router;
+publicRoutes.get('/home',errorHandler(home));

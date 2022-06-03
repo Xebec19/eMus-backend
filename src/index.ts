@@ -1,8 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
-import path from 'path';
-import auth from './routes/auth.route';
-import { statusCodes } from './utils/status-codes.map';
-import publicApis from './routes/public.route';
+import { authRoutes, publicRoutes } from './routes/index';
 import AppError from './abstractions/classes/app-error.class';
 import { Logger, morganMiddleware } from './utils';
 
@@ -12,8 +9,8 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(morganMiddleware);
 
-app.use('/public', publicApis);
-app.use('/auth', auth);
+app.use('/public', publicRoutes );
+app.use('/auth', authRoutes);
 
 app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
   Logger.error(err.stack);
