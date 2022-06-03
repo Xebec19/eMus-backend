@@ -11,7 +11,7 @@ export const validateSchema = (schema:any) => (req:Request,res:Response,next:Nex
             if(process.env.NODE_ENV !== 'test'){
                 Logger.error(ajv.errors);
             }
-            return res.status(statusCodes.INVALID_INPUT).json({ status: false, message: 'Invalid input', data: ajv.errors }).end();
+            return res.status(statusCodes.INVALID_REQUEST).json({ status: false, message: 'Invalid input', data: ajv.errors }).end();
         };
         return next();
     };
