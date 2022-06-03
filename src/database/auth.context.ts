@@ -21,7 +21,7 @@ export const checkEmail = async (payload:string) => {
  * @param {IUser} payload 
  */
 export const createUser = async (payload:IUser) => {
-    const { user_name, email, first_name, last_name, password } = payload;
+    const { user_name, email, first_name, last_name, password, plan_id } = payload;
     const user = await db.users.create({
         data: <users>{
             user_id: randomString(),
@@ -30,6 +30,7 @@ export const createUser = async (payload:IUser) => {
             first_name,
             last_name,
             password,
+            plan_id
         },
         select:{ user_id: true }
     });

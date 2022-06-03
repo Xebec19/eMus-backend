@@ -126,6 +126,8 @@ model users {
   created_on                                                          DateTime?                  @default(now()) @db.Timestamp(6)
   updated_on                                                          DateTime?                  @default(now()) @db.Timestamp(6)
   status                                                              String?                    @default("active") @db.VarChar(10)
+  plan_id                                                             String                     @default("123") @db.VarChar(10)
+  plans                                                               plans                      @relation(fields: [plan_id], references: [plan_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_plan_id_plans_plan_id")
   counters_counters_assigneeTousers                                   counters[]                 @relation("counters_assigneeTousers")
   counters_counters_created_byTousers                                 counters[]                 @relation("counters_created_byTousers")
   counters_counters_updated_byTousers                                 counters[]                 @relation("counters_updated_byTousers")
@@ -142,4 +144,16 @@ model users {
   sessions                                                            sessions[]
   stores_stores_created_byTousers                                     stores[]                   @relation("stores_created_byTousers")
   stores_stores_updated_byTousers                                     stores[]                   @relation("stores_updated_byTousers")
+}
+
+model plans {
+  plan_id       String    @id @db.VarChar(10)
+  plan_name     String?   @unique @db.VarChar(200)
+  description   String
+  no_of_stores  Int?      @default(1)
+  no_of_members Int?      @default(4)
+  created_on    DateTime? @default(now()) @db.Timestamp(6)
+  updated_on    DateTime? @default(now()) @db.Timestamp(6)
+  price         Int?      @default(0)
+  users         users[]
 }

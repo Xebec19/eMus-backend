@@ -37,7 +37,7 @@ describe("Test authentication",() => {
 
     test("User should able to login with correct user name and password", async () => {
         const payload = {
-            "user_identifier":"rohan3@gmail.com",
+            "user_identifier":"rohan@gmail.com",
             "password":"123password",
         };
         const response = await request(app).post("/auth/login").send(payload);

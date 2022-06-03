@@ -4,6 +4,7 @@ import AppError from '../abstractions/classes/app-error.class';
 import { checkEmail, createUser, findUser } from '../database/auth.context';
 import { IResponse, IUser } from '../abstractions/interfaces/index.model';
 import { compareString, hashString, jwtSign, randomString, statusCodes } from '../utils';
+import { getFreePlan } from '../database/store.context';
 
 /**
  * @route /auth/register
@@ -20,6 +21,7 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
         if(isEmailExist){
             throw new AppError(`User exists : ${email}`,401,true);
         }
+        const plan_id = await getFreePlan();
         const payload:IUser = {
                 user_id: randomString(),
                 user_name:userName,
@@ -27,6 +29,7 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
                 first_name:firstName,
                 last_name:lastName,
                 password: hash,
+                plan_id: plan_id + ''
             };
         const user = await createUser(payload);
         const response: IResponse = {

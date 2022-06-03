@@ -5,4 +5,5 @@ export interface IUser {
     last_name: string | null;
     email: string;
     password: string;
+    plan_id: string;
 }
