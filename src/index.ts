@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { authRoutes, publicRoutes } from './routes/index';
+import { authRoutes, publicRoutes, storeRoutes } from './routes/index';
 import AppError from './abstractions/classes/app-error.class';
 import { Logger, morganMiddleware } from './utils';
 
@@ -11,6 +11,7 @@ app.use(morganMiddleware);
 
 app.use('/public', publicRoutes );
 app.use('/auth', authRoutes);
+app.use('/store',storeRoutes);
 
 app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
   Logger.error(err.stack);

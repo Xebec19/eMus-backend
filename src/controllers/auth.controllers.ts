@@ -48,11 +48,11 @@ export const loginUser = async (req:Request, res:Response) => {
     const user = await findUser(userIdentifier);
     if(!user)
     {
-        throw new AppError('User does not exists!',statusCodes.INVALID_INPUT,true);
+        throw new AppError('User does not exists!',statusCodes.INVALID_REQUEST,true);
     }
     if(!compareString(password,user.password))
     {
-        throw new AppError('Password did not match!',statusCodes.INVALID_INPUT,true);
+        throw new AppError('Password did not match!',statusCodes.INVALID_REQUEST,true);
     }
     const token = await jwtSign(user.user_id);
     const response: IResponse = {

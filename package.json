@@ -13,7 +13,8 @@
     "pretty": "prettier --write 'src/**/*.ts'",
     "prepare": "husky install",
     "precommit": "npm run lint-fix && npm run pretty",
-    "prepush": "npm test && npm run lint"
+    "prepush": "npm test && npm run lint",
+    "tidy": "npm run lint-fix && npm run pretty"
   },
   "repository": {
     "type": "git",
