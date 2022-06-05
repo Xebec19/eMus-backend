@@ -1,7 +1,8 @@
 import { users } from '@prisma/client';
-import { IUser } from '../abstractions/interfaces/index.model';
+import { IPlan, IUser } from '../abstractions/interfaces/index.model';
 import { randomString } from '../utils';
 import db from './prisma-connection';
+import { findPlanById } from './plan.context';
 
 /**
  * @desc checks if a given email exists in db
@@ -84,4 +85,14 @@ export const findUserById = async(userId:string,details = false):Promise<boolean
     }
     const user = await db.users.findFirst({ where: { user_id: userId } });
     return user ?? false;
+};
+
+export const findUserPlan = async(user_id:string):Promise<IPlan|null> => {
+    const { plan_id } = (await db.users.findFirst({ where:{ user_id }, select:{ plan_id:true } })) ?? {};
+    if(plan_id)
+    {
+        const plan = await findPlanById(plan_id);
+        return plan;
+    }
+    return null;
 };

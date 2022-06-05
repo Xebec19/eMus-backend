@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from '../../index';
-import { getFreePlan } from "../../database/store.context";
+import { getFreePlan } from "../../database/plan.context";
 import { statusCodes } from "../../utils";
 
 describe("Test store context functions", () => {

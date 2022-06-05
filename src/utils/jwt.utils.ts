@@ -1,14 +1,14 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import AppError from '../abstractions/classes/app-error.class';
 import env from '../environments/index';
 import { statusCodes } from './status-codes.map';
 
 /**
- * @desc returns a jwt
+ * @desc creates a token using provided payload and secret key
  * @param payload 
- * @returns Promise<string>
+ * @returns {string} token
  */
-export const jwtSign = async(payload:any) => {
+export const jwtSign = async(payload:JwtPayload):Promise<string> => {
     const token = jwt.sign(
         {
         data: payload
@@ -23,13 +23,13 @@ export const jwtSign = async(payload:any) => {
  * @desc validates jwt token with secret and returns payload attached with the token
  * @param token 
  */
-export const jwtCheck = async(token:string):Promise<any> => {
+export const jwtCheck = async(token:string) => {
     // todo #6 #5 validate jwt token
-    jwt.verify(token,env.jwtSecret,(err,decoded)=> {
-        if(err){
-            throw new AppError(`Error occurred while decoding token ${token}`,statusCodes.INTERNAL_SERVER_ERROR,true);
-        }
-        return decoded;
-    });
+    const payload = jwt.verify(token,env.jwtSecret);
+    if(typeof payload === 'object')
+    {
+        return payload?.data;
+    }
+    return {};
 };
      

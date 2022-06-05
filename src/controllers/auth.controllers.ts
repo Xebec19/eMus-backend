@@ -1,10 +1,10 @@
 
 import { NextFunction, Request, Response } from 'express';
 import AppError from '../abstractions/classes/app-error.class';
-import { checkEmail, createUser, findUser } from '../database/auth.context';
+import { checkEmail, createUser, findUser } from '../database/user.context';
 import { IResponse, IUser } from '../abstractions/interfaces/index.model';
 import { compareString, hashString, jwtSign, randomString, statusCodes } from '../utils';
-import { getFreePlan } from '../database/store.context';
+import { getFreePlan } from '../database/plan.context';
 
 /**
  * @route /auth/register
@@ -54,11 +54,11 @@ export const loginUser = async (req:Request, res:Response) => {
     {
         throw new AppError('Password did not match!',statusCodes.INVALID_REQUEST,true);
     }
-    const token = await jwtSign(user.user_id);
+    const token = await jwtSign({ userId:user.user_id });
     const response: IResponse = {
         status: true,
         message: 'User logged in successfully',
-        data: token
+        data: `Bearer ${  token}`
     };
     return res.status(201).json(response).end();
 };
