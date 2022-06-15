@@ -11,3 +11,8 @@ storeRoutes.post('/create',
     errorHandler(checkToken),
     errorHandler(createStore)
 );
+
+// storeRoutes.get('/delete',
+//     errorHandler(checkToken),
+//     errorHandler(deleteStore)
+// );

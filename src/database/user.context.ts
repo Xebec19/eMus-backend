@@ -73,18 +73,9 @@ export const findUser = async (userIdentifier:string): Promise<{user_id:string,p
  * @desc finds if user with given user id exists
  * @params {string} userId
  */
-export const findUserById = async(userId:string,details = false):Promise<boolean|object> => {
-    if(!details)
-    {
-        const count = await db.users.count({ where:{ user_id: userId } });
-        if(count > 0)
-        {
-            return true;
-        }
-        return false;
-    }
+export const findUserById = async(userId:string):Promise<users|null> => {
     const user = await db.users.findFirst({ where: { user_id: userId } });
-    return user ?? false;
+    return user;
 };
 
 export const findUserPlan = async(user_id:string):Promise<IPlan|null> => {

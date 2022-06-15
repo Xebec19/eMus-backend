@@ -45,6 +45,7 @@
         ],
         "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
         "import/prefer-default-export": 1,
-        "import/no-cycle": 1
+        "import/no-cycle": 1,
+        "no-prototype-builtins": 1
     }
 }

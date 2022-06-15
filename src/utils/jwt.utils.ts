@@ -1,6 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import AppError from '../abstractions/classes/app-error.class';
 import env from '../environments/index';
+import { Logger } from './logger.util';
 import { statusCodes } from './status-codes.map';
 
 /**
@@ -25,10 +26,12 @@ export const jwtSign = async(payload:JwtPayload):Promise<string> => {
  */
 export const jwtCheck = async(token:string) => {
     // todo #6 #5 validate jwt token
-    const payload = jwt.verify(token,env.jwtSecret);
-    if(typeof payload === 'object')
-    {
-        return payload?.data;
+    if(typeof token === 'string'){
+        const payload = jwt.verify(token,env.jwtSecret);
+        if(typeof payload === 'object')
+        {
+            return payload?.data;
+        }
     }
     return {};
 };

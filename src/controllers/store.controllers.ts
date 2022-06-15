@@ -33,6 +33,18 @@ export const createStore = async(req:Request, res:Response, next:NextFunction) =
         message:'User can not create more stores!',
         data:'Min number of stores allowed in user plan have exceed! Please upgrade your plan to create more stores.'
     };
-    return res.status(statusCodes.SUCCESS).json(response).end();
+    return res.status(statusCodes.ERROR).json(response).end();
+};
 
+/**
+ * @route /store/delete
+ * @type GET
+ * @desc deletes a store
+ */
+export const deleteStore = async(req:Request,res:Response) => {
+    const storeId = req.query.store_id;
+
+    // check if store to be deleted belongs to the user
+    // validateStore(res.locals.user.user_id)
+    return false;
 };
