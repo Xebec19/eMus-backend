@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import AppError from '../abstractions/classes/app-error.class';
-import { IResponse } from '../abstractions/interfaces/index.model';
 import { findUserById } from '../database/user.context';
 import { jwtCheck } from './jwt.utils';
 import { statusCodes } from './status-codes.map';

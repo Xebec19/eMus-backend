@@ -9,6 +9,7 @@ GRANT ALL ON roles TO admin;
 GRANT ALL ON sessions TO admin;
 GRANT ALL ON stores TO admin;
 GRANT ALL ON users TO admin;
+GRANT ALL ON user_view TO admin;
 
 -- grant permissions to client
 GRANT SELECT ON permissions TO client;

@@ -4,7 +4,7 @@ import { IResponse } from '../abstractions/interfaces/response.model';
 import { createNewStore } from '../database/store.context';
 import { jwtCheck, statusCodes } from '../utils';
 import { checkToken } from '../utils/checkToken.middleware';
-import { validatePlan } from '../utils/validatePlan.utils';
+import { validatePlanForStore } from '../utils/validatePlan.utils';
 
 /**
  * @route /store/create
@@ -15,7 +15,7 @@ export const createStore = async(req:Request, res:Response, next:NextFunction) =
     const { store_name:storeName, description } = req.body;
     const token = req.headers.authorization?.split(' ')[1] ?? '';
 
-    const allow = await validatePlan(token,'store');
+    const allow = await validatePlanForStore(res.locals?.user?.user_id);
     if(allow)
     {
         const payload = await jwtCheck(token);
