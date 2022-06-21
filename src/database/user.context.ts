@@ -1,4 +1,4 @@
-import { users } from '@prisma/client';
+import { users,user_view } from '@prisma/client';
 import { IPlan, IUser } from '../abstractions/interfaces/index.model';
 import { randomString } from '../utils';
 import db from './prisma-connection';
@@ -73,8 +73,8 @@ export const findUser = async (userIdentifier:string): Promise<{user_id:string,p
  * @desc finds if user with given user id exists
  * @params {string} userId
  */
-export const findUserById = async(userId:string):Promise<users|null> => {
-    const user = await db.users.findFirst({ where: { user_id: userId } });
+export const findUserById = async(userId:string):Promise<user_view|null> => {
+    const user = await db.user_view.findFirst({ where: { user_id: userId } });
     return user;
 };
 
