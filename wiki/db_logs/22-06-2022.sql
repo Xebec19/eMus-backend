@@ -1,3 +1,5 @@
+-- haven't executed yet
+create view v_user_permissions as
 select s.store_id, s.store_name, u.user_id, coalesce(u.first_name, u.last_name) as name,
 r.role_id, r.role_name, 
 array_agg(select permission_name from role_permission_policies rpp
