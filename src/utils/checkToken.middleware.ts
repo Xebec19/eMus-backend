@@ -10,11 +10,9 @@ export const checkToken = async(req:Request, res:Response, next:NextFunction) =>
         throw new AppError('No token found!',statusCodes.FORBIDDEN,true);
     }
     const payload = await jwtCheck(token);
-    const userData = await findUserById(payload?.userId);
-    if(!userData?.hasOwnProperty('user_id'))
+    if(!payload)
     {
         throw new AppError('No user found!',statusCodes.FORBIDDEN,true);
     }
-    res.locals.user = userData;
     next();
 };

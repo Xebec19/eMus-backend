@@ -70,15 +70,22 @@ export const findUser = async (userIdentifier:string): Promise<{user_id:string,p
 };
 
 /**
- * @desc finds if user with given user id exists
+ * @desc returns user with plan details
  * @params {string} userId
+ * @returns user_view
  */
-export const findUserById = async(userId:string):Promise<user_view|null> => {
-    const user = await db.user_view.findFirst({ where: { user_id: userId } });
+export const findUserById = async(userId:string):Promise<any> => {
+    const user = await db.$queryRaw`SELECT user_id, user_name, full_name, email,
+    plan_id, plan_name, no_of_stores, no_of_members from user_view where user_id = ${userId}`;
     return user;
 };
 
-export const findUserPlan = async(user_id:string):Promise<IPlan|null> => {
+/**
+ * @desc sends plan details of a user
+ * @param user_id :string
+ * @returns plan details of a user
+ */
+ export const findUserPlan = async(user_id:string):Promise<IPlan|null> => {
     const { plan_id } = (await db.users.findFirst({ where:{ user_id }, select:{ plan_id:true } })) ?? {};
     if(plan_id)
     {

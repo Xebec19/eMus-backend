@@ -1,5 +1,6 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import AppError from '../abstractions/classes/app-error.class';
+import db from '../database/prisma-connection';
 import env from '../environments/index';
 import { Logger } from './logger.util';
 import { statusCodes } from './status-codes.map';
@@ -27,8 +28,9 @@ export const jwtSign = async(payload:JwtPayload):Promise<string> => {
 export const jwtCheck = async(token:string) => {
     // todo #6 #5 validate jwt token
     if(typeof token === 'string'){
-        const payload = jwt.verify(token,env.jwtSecret);
-        if(typeof payload === 'object')
+        const payload:any = jwt.verify(token,env.jwtSecret) ?? {};
+        const count = await db.sessions.count({ where:{ token,user_id:payload?.user_id } });
+        if(typeof payload === 'object' && count)
         {
             return payload?.data;
         }

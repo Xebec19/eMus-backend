@@ -54,6 +54,7 @@ export const loginUser = async (req:Request, res:Response) => {
     {
         throw new AppError('Password did not match!',statusCodes.INVALID_REQUEST,true);
     }
+    
     const token = await jwtSign({ userId:user.user_id });
     const response: IResponse = {
         status: true,
