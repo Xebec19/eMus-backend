@@ -1,7 +1,4 @@
-import request from "supertest";
-import app from '../../index';
 import { getFreePlan } from "../../database/plan.context";
-import { Logger, statusCodes } from "../../utils";
 
 describe("Test store context functions", () => {
     test("getFreePlan should return only plan_id of free plan if no params passed", async() => {
@@ -14,35 +11,3 @@ describe("Test store context functions", () => {
         expect(typeof plan_id).toBe('object');
     });
 });
-
-describe("POST store/create",() => {
-    let token:string;
-    beforeAll(async() => {
-        const payload = {
-            "user_identifier":"rohan@gmail.com",
-            "password":"123password",
-        };
-        const response = await request(app).post("/auth/login").send(payload);
-        token = response.body.data;
-    });
-
-    test("User with no token should not be able to access route", async() => {
-        const payload = {
-            store_name: "Test",
-            description: "A test store"
-        }
-        const response = await request(app).post('/store/create').send(payload);
-        expect(response.body.status).toBeFalsy();
-        expect(response.body.message).toBe('No token found!');
-        expect(response.statusCode).toBe(statusCodes.FORBIDDEN);
-    });
-
-    test("User with token should be able to access route",async() => {
-        const payload = {
-            store_name: "Test",
-            description: "A test store"
-        }
-        const response = await request(app).post('/store/create').set('authorization',token).send(payload);
-        expect(response.body.message === 'User can not create more stores!' || response.body.message === 'Store created').toBeTruthy();
-    })
-})
