@@ -12,34 +12,34 @@ drop column updated_by;
 
 -- permissions
 insert into permissions(permission_id, permission_name, description)
-values('perm-YXfojaozRJ','create_store','allow to add store'); 0
+values('perm-YXfojaozRJ','create_store','allow to add store'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-WkYitrkbS1','delete_store','allow to delete store'); 0
+values('perm-WkYitrkbS1','delete_store','allow to delete store'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-pbW_8oe2Mb','edit_store','allow to edit store'); 0
+values('perm-pbW_8oe2Mb','edit_store','allow to edit store'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-vR6FEztZoi','add_member','allow to add member'); 1
+values('perm-vR6FEztZoi','add_member','allow to add member'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-uLWsF0GtyL','view_member','allow to view member'); 1
+values('perm-uLWsF0GtyL','view_member','allow to view member'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-MRoExOfP04','delete_member','allow to delete member'); 1
+values('perm-MRoExOfP04','delete_member','allow to delete member'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-lntGBPYFiE','serve','allow to serve customer'); 2
+values('perm-lntGBPYFiE','serve','allow to serve customer'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-lkFFvdU3V-','reject','allow to reject customer'); 2
+values('perm-lkFFvdU3V-','reject','allow to reject customer'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-UKCfzLPa5r','direct_customer','allow to send customer to a counter'); 1
+values('perm-UKCfzLPa5r','direct_customer','allow to send customer to a counter'); 
 
 insert into permissions(permission_id, permission_name, description)
-values('perm-1GbXbXnboM','edit_queue','edit queue'); 1
+values('perm-1GbXbXnboM','edit_queue','edit queue'); 
 
 -- roles
 insert into roles (role_id,role_name,description)

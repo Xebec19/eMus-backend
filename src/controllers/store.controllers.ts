@@ -33,7 +33,7 @@ export const createStore = async(req:Request, res:Response, next:NextFunction) =
         message:'User can not create more stores!',
         data:'Min number of stores allowed in user plan have exceed! Please upgrade your plan to create more stores.'
     };
-    return res.status(statusCodes.ERROR).json(response).end();
+    return res.status(statusCodes.INVALID_REQUEST).json(response).end();
 };
 
 /**

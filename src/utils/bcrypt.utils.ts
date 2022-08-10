@@ -5,7 +5,7 @@ import AppError from '../abstractions/classes/app-error.class';
 // hashes a given string
 export const hashString = async(text:string):Promise<string|any> => {
     if(!text || typeof text !== 'string'){
-        throw new AppError('Invalid string',statusCodes.ERROR);
+        throw new AppError('Invalid string',statusCodes.INVALID_REQUEST);
     }
     const hash = bcrypt.hashSync(text, 8);
     return hash;
