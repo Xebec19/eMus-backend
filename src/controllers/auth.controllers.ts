@@ -10,6 +10,11 @@ import { getFreePlan } from '../database/plan.context';
  * @route /auth/register
  * @type POST
  * @desc creates a new user
+ * @param email 
+ * @param user_name
+ * @param first_name
+ * @param last_name
+ * @param password
  */
 export const registerUser = async (req: Request, res: Response, next:NextFunction) => {
         const { email, user_name:userName, first_name:firstName, last_name:lastName, password } = req.body;
@@ -42,6 +47,8 @@ export const registerUser = async (req: Request, res: Response, next:NextFunctio
  * @route /auth/login
  * @type POST
  * @desc checks user credentials and returns jwt token
+ * @param user_identifier email or user_name
+ * @param password
  */
 export const loginUser = async (req:Request, res:Response) => {
     const { user_identifier:userIdentifier, password } = req.body;

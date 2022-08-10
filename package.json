@@ -6,11 +6,11 @@
   "scripts": {
     "test": "jest --config=src/jest.config.ts --passWithNoTests",
     "start": "npm run build && node build/server.js",
-    "watch:debug": "nodemon",
+    "dev": "nodemon",
     "build": "rimraf ./build && tsc -p tsconfig.production.json",
     "lint": "eslint src/**/*.ts",
-    "lint-fix": "eslint --fix src/**/*.ts",
-    "pretty": "prettier --write 'src/**/*.ts'",
+    "lint-fix": "eslint --fix src/**/*.ts && git add -A .",
+    "pretty": "prettier --write 'src/**/*.ts' && git add -A .",
     "prepare": "husky install",
     "precommit": "npm run lint-fix && npm run pretty",
     "prepush": "npm test && npm run lint",
@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/Xebec19/psychic-octo-sniffle#readme",
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.5.1",

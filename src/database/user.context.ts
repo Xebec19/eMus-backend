@@ -41,7 +41,7 @@ export const createUser = async (payload:IUser) => {
 
 /**
  * @desc fetches user data
- * @param {string} userIdentifier
+ * @param {string} userIdentifier(email or user_name)
  */
 export const findUser = async (userIdentifier:string): Promise<{user_id:string,password:string}|null> => {
     const user = await db.users.findFirst({

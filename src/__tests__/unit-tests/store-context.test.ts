@@ -1,7 +1,4 @@
-import request from "supertest";
-import app from '../../index';
 import { getFreePlan } from "../../database/plan.context";
-import { statusCodes } from "../../utils";
 
 describe("Test store context functions", () => {
     test("getFreePlan should return only plan_id of free plan if no params passed", async() => {

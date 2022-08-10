@@ -1,3 +1,6 @@
+-- create user
+CREATE USER admin WITH PASSWORD env.ADMIN_PASSWORD;
+CREATE USER client WITH PASSWORD env.CLIENT_PASSWORD;
 -- grant permission to role admin
 GRANT ALL ON counters TO admin;
 GRANT ALL ON members TO admin;
