@@ -1,4 +1,4 @@
-import { users,user_view } from '@prisma/client';
+import { users } from '@prisma/client';
 import { IPlan, IUser } from '../abstractions/interfaces/index.model';
 import { randomString } from '../utils';
 import db from './prisma-connection';
